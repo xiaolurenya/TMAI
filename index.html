@@ -821,12 +821,11 @@
 
         // 全局配置
         const CONFIG = {
-            mainHost: "https://api2.m-team.cc/api",
-            testHost: "https://api2.m-team.cc/api",
-            teamStatsSource: "https://sports-data-api.example.com/team-stats",
-            apis: {
-                "get_current_bet": "bet/findBetgameList?active=LIVE&fix=0",
-                "get_team_history": "team/getHistory?teamId={teamId}"
+         mainHost: "https://api2.m-team.cc/api",
+         testHost: "https://api2.m-team.cc/api",
+          apis: {
+        "get_current_bet": "bet/findBetgameList",
+             
             },
             state: {
                 availableBets: [],
@@ -1115,21 +1114,11 @@
         };
 
         // API核心逻辑
-        async function request(url, method = 'post', data = {}, retry = 1) {
-            // 更新连接状态
-            updateConnectionStatus('connecting');
-            
-            try {
-                const response = await axios({
-                    method,
-                    url,
-                    data,
-                    headers: {
-                        "x-api-key": CONFIG.state.apiKey,
-                        "Content-Type": "application/json"
-                    },
-                    timeout: 15000
-                });
+       const apiKey = document.getElementById("apiKeyInput").value;
+    const headers = {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json"
+    };
                 
                 // 更新连接状态为成功
                 updateConnectionStatus('connected');
